@@ -7,6 +7,7 @@ const userRouter = require('./users/routes');
 const bodyParser = require('body-parser');
 const app = express();
 
+// nom de ma BDD mongodb
 mongoose.connect('mongodb://localhost/mood-node', {useNewUrlParser: true});
 
 app.use(cors());
@@ -19,6 +20,7 @@ app.get('/', function(req, res) {
     res.send(params);
 });
 
+// routes pour chaques methodes défini dans mon controller
 app.get('/users', users.controller.getAll);
 app.post('/users', users.controller.createUser);
 app.post('/auth', users.controller.authUser)
@@ -27,6 +29,7 @@ app.delete('/users/:id', users.controller.deleteUser);
 
 app.use('/users', userRouter);
 
+// port de mon server
 app.listen( 3001, function() {
     console.log('Server started on port 3001...');
 });

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 const BCRYPT_SALT_ROUNDS = 10;
 
+// je recupere tous mes utilisateurs
 const getAll = async (req, res) => {
     try {
         const users = await User.find();
@@ -13,6 +14,7 @@ const getAll = async (req, res) => {
     }
 };
 
+// je créer un utilisateur
 const createUser = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -42,6 +44,7 @@ const createUser = async (req, res) => {
     }
 };
 
+// je me connecte a mon compte utilisateur
 const authUser = async (req, res) => {
     const { email, password } = req.body;
     let isSamePassword;
@@ -51,7 +54,7 @@ const authUser = async (req, res) => {
         user = await User.findOne({email});
 
         if (!user) {
-            throw 'Cet user n\'existe pas, je suis trop déso'
+            throw 'This user not exist'
         }
 
         isSamePassword = await bcrypt.compareSync(password, user.password)
@@ -67,6 +70,7 @@ const authUser = async (req, res) => {
     } 
 }
 
+// je modifie des informations utilisateur
 const updateUser = (req, res) => {
     User.findOneAndUpdate(
         { _id : req.params.id }, {
@@ -82,6 +86,7 @@ const updateUser = (req, res) => {
     );
 };
 
+// je supprime un utilisateur
 const deleteUser = (req, res) => {
     User.remove({ _id: req.params.id }, (err, result) => {
         if (err) {
@@ -92,6 +97,7 @@ const deleteUser = (req, res) => {
     })
 }
 
+// jexporte mes methodes
 module.exports = {
     getAll,
     createUser,

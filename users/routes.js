@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var users = express.Router();
 var User = require("./model");
 
-// Sign in
+// Login
 users.post('/signin', (req,res) => {
   var email = req.body.email;
   var password = req.body.password;
@@ -20,16 +20,16 @@ users.post('/signin', (req,res) => {
   })
 })
 
-// Sign up
+// Créer un compte
 users.post('/signup', (req,res) => {
     var newUser = new User(req.body)
 
     newUser.save((err, user) => {
-        if (err) {
+      if (err) {
         res.json({ "resultType": "failure", "resultMessage": err });
-        } else {
+      } else {
         res.json({ "resultType": "success", "resultMessage": "Account successfully created." });
-        }
+      }
     })
 })
   
