@@ -1,5 +1,6 @@
 const User = require('./model');
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 const BCRYPT_SALT_ROUNDS = 10;
 
@@ -16,11 +17,15 @@ const getAll = async (req, res) => {
 
 // je créer un utilisateur
 const createUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, confirmedPassword } = req.body;
     try {
-        if (!email || !password) {
+        if (!email || !password || !confirmedPassword) {
             throw 'all fields are required'
-        }   
+        } 
+
+        if (password != confirmedPassword) {
+            throw 'password is different than confirmed password'
+        }
             
         const hash = await bcrypt.hashSync(password, BCRYPT_SALT_ROUNDS);
 
@@ -30,17 +35,17 @@ const createUser = async (req, res) => {
             password: hash
         };
 
-        // ici j'envoie notre objet en BBD via une methode mongoose
-        User.create(newUser, (err, res_create) => {
-            if (err) { 
-                res.status(500).send(err); 
+        // ici je créer un utilisateur et je gere les erreurs
+        User.create(newUser, (err) => {
+            if (err) {
+                res.json({ "resultType": "failure", "resultMessage": 'error when creating the user' });
             } else {
-                res.status(200).send("use register with success");
-            }    
+                res.json({ "resultType": "success", "resultMessage": "Account successfully created." });
+            }  
         });
     }
     catch (error) {
-        res.status(200).send(error);
+        res.json({ "resultType": "failure", "resultMessage": error });
     }
 };
 
@@ -62,11 +67,12 @@ const authUser = async (req, res) => {
         if (!isSamePassword) {
             throw 'Bad password'
         }
-        res.send(user);
+        var token = jwt.sign({ email }, 'shhhhh'); // si bien connecter alors renvoi token
+        res.json({ "resultType": "success", "resultMessage": "You are successfully logged in.", "token": token })
     } catch (error) {
         console.log("Error authenticating user");
         console.log(error);
-        res.status(403).send(error);
+        res.json({ "resultType": "failure", "resultMessage": "Wrong credentials." });
     } 
 }
 
@@ -97,7 +103,7 @@ const deleteUser = (req, res) => {
     })
 }
 
-// jexporte mes methodes
+// j'exporte mes methodes
 module.exports = {
     getAll,
     createUser,

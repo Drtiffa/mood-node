@@ -2,7 +2,6 @@ const params = require('./params');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const users = require('./users');
 const userRouter = require('./users/routes');
 const bodyParser = require('body-parser');
 const app = express();
@@ -19,13 +18,6 @@ app.use(express.json());
 app.get('/', function(req, res) {
     res.send(params);
 });
-
-// routes pour chaques methodes défini dans mon controller
-app.get('/users', users.controller.getAll);
-app.post('/users', users.controller.createUser);
-app.post('/auth', users.controller.authUser)
-app.put('/users/update/:id', users.controller.updateUser);
-app.delete('/users/:id', users.controller.deleteUser);
 
 app.use('/users', userRouter);
 
