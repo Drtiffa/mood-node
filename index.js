@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const userRouter = require('./users/routes');
+const avatarRouter = require('./avatar/routes');
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -20,6 +21,7 @@ app.get('/', function(req, res) {
 });
 
 app.use('/users', userRouter);
+app.use('/avatar', avatarRouter);
 
 // port de mon server
 app.listen( 3001, function() {

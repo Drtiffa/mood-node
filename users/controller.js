@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
     }
 };
 
-// je créer un utilisateur
+// je crée un utilisateur
 const createUser = async (req, res) => {
     const { email, password, confirmedPassword } = req.body;
     try {
@@ -29,13 +29,13 @@ const createUser = async (req, res) => {
             
         const hash = await bcrypt.hashSync(password, BCRYPT_SALT_ROUNDS);
 
-        // je créer un objet qui va me permettre de récuperer ce que l'utilisateur entre suivant le model
+        // je crée un objet qui va me permettre de récuperer ce que l'utilisateur entre suivant le model
         const newUser = {
             email: email,
             password: hash
         };
 
-        // ici je créer un utilisateur et je gere les erreurs
+        // ici je crée un utilisateur et je gere les erreurs
         User.create(newUser, (err) => {
             if (err) {
                 res.json({ "resultType": "failure", "resultMessage": 'error when creating the user' });
