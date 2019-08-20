@@ -8,7 +8,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // nom de ma BDD mongodb
-mongoose.connect('mongodb://localhost/mood-node', {useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost/mood-node', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://mood:mood1234@cluster0-yrtcn.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 app.use(cors());
 
