@@ -13,9 +13,8 @@ const getAvatar = async (req, res) => {
 
 // je crée un avatar
 const createAvatar = async (req, res) => {
-
     const { actualImage } = req.body;
-
+    
     const newAvatar = {
         avatar: actualImage
     };

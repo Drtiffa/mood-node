@@ -28,5 +28,5 @@ const PORT = process.env.PORT || 3001;
 
 // port de mon server
 app.listen(PORT, function() {
-    console.log('Server started on port 3001...');
+    console.log('Server started !');
 });
