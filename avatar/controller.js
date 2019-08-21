@@ -1,6 +1,6 @@
 const Avatar = require('./model');
 
-// je recupere tous mes avatars
+// get all my avatars
 const getAvatar = async (req, res) => {
     try {
         const avatar = await Avatar.find();
@@ -11,7 +11,7 @@ const getAvatar = async (req, res) => {
     }
 };
 
-// je crée un avatar
+// create avatar
 const createAvatar = async (req, res) => {
     const { actualImage } = req.body;
     
@@ -29,7 +29,7 @@ const createAvatar = async (req, res) => {
     });
 }
 
-// je récupere un avatar grace a son ID
+// get avatar with ID
 const getAvatarId = async (req, res) => {
     try {
         const avatar = await Avatar.findOne({ _id: req.params.id });
@@ -40,7 +40,7 @@ const getAvatarId = async (req, res) => {
     }
 };
 
-// je récupere un l'image de mon avatar
+// get image avatar
 const getAvatarImage = async (req, res) => {
     try {
         const avatar = await Avatar.findOne({ _id: req.params.id });

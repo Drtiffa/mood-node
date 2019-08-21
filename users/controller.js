@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 
 const BCRYPT_SALT_ROUNDS = 10;
 
-// je recupere tous mes utilisateurs
+// get all users
 const getAll = async (req, res) => {
     try {
         const users = await User.find();
@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
     }
 };
 
-// je crée un utilisateur
+// create user
 const createUser = async (req, res) => {
     const { email, password, confirmedPassword } = req.body;
     try {
@@ -49,7 +49,7 @@ const createUser = async (req, res) => {
     }
 };
 
-// je me connecte a mon compte utilisateur
+// login
 const authUser = async (req, res) => {
     const { email, password } = req.body;
     let isSamePassword;
@@ -76,7 +76,7 @@ const authUser = async (req, res) => {
     } 
 }
 
-// je modifie des informations utilisateur
+// modify user information
 const updateUser = (req, res) => {
     User.findOneAndUpdate(
         { _id : req.params.id }, {
@@ -92,7 +92,7 @@ const updateUser = (req, res) => {
     );
 };
 
-// je supprime un utilisateur
+// delete user
 const deleteUser = (req, res) => {
     User.remove({ _id: req.params.id }, (err, result) => {
         if (err) {
@@ -103,7 +103,6 @@ const deleteUser = (req, res) => {
     })
 }
 
-// j'exporte mes methodes
 module.exports = {
     getAll,
     createUser,

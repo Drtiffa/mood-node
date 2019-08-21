@@ -7,7 +7,7 @@ const avatarRouter = require('./avatar/routes');
 const bodyParser = require('body-parser');
 const app = express();
 
-// nom de ma BDD mongodb
+// BDD name mongodb
 // mongoose.connect('mongodb://localhost/mood-node', {useNewUrlParser: true});
 mongoose.connect('mongodb+srv://mood:mood1234@cluster0-yrtcn.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 
@@ -26,7 +26,7 @@ app.use('/avatar', avatarRouter);
 
 const PORT = process.env.PORT || 3001;
 
-// port de mon server
+// server port
 app.listen(PORT, function() {
     console.log('Server started !');
 });
